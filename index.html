@@ -231,7 +231,7 @@
         btn.textContent = 'Joining...';
         btn.disabled = true;
 
-        fetch('https://getflowing.io/api/waitlist', {
+        fetch('https://getflowing-website.vercel.app/api/waitlist', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: email, source: 'tenantsync-landing' })
