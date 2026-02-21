@@ -135,7 +135,7 @@
         .cta-content h2{margin-bottom:1rem}
         .cta-content p{font-size:1rem;color:var(--slate-600);line-height:1.6;margin-bottom:2rem}
         .signup-form{display:flex;gap:.65rem;max-width:440px;margin:0 auto}
-        .signup-form input[type="email"]{flex:1;padding:.85rem 1.1rem;background:#fff;border:1px solid var(--slate-300);border-radius:10px;color:var(--ink);font-family:var(--sans);font-size:.92rem;outline:none;transition:all .2s}
+        .signup-form input[type="email"],.signup-form input[type="text"]{flex:1;padding:.85rem 1.1rem;background:#fff;border:1px solid var(--slate-300);border-radius:10px;color:var(--ink);font-family:var(--sans);font-size:.92rem;outline:none;transition:all .2s;width:100%;box-sizing:border-box}
         .signup-form input::placeholder{color:var(--slate-400)}
         .signup-form input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
         .signup-form button{padding:.85rem 1.6rem;background:var(--accent);color:#fff;border:none;border-radius:10px;font-family:var(--sans);font-weight:600;font-size:.92rem;cursor:pointer;transition:all .25s;white-space:nowrap}
@@ -172,7 +172,7 @@
     <a href="#" class="logo"><div class="logo-mark">TS</div><div class="logo-text">TenantSync</div></a>
     <div class="nav-links">
         <a href="#what-syncs">What Syncs</a>
-        <a href="#products">Products</a>
+        <a href="#how-it-works">How It Works</a>
         <a href="#pricing">Pricing</a>
         <a href="#get-started" class="nav-cta">Get Started</a>
     </div>
@@ -200,15 +200,14 @@
     <div class="terminal-header"><div class="terminal-dot red"></div><div class="terminal-dot yellow"></div><div class="terminal-dot green"></div><div class="terminal-title">TenantSync &mdash; Browser Extension</div></div>
     <div class="terminal-body">
         <div><span class="t-prompt">[19:21]</span> <span class="t-cmd">Auto-sync triggered</span></div>
-        <div><span class="t-output">[19:21] Exporting solution from source tenant...</span></div>
-        <div><span class="t-output">[19:21] Computing component hashes (CRC-32)...</span></div>
+        <div><span class="t-output">[19:21] Scanning source tenant...</span></div>
         <div><span class="t-output">[19:21] Checking for changes...</span></div>
         <div><span class="t-success">&#10003; No changes detected &mdash; sync skipped</span></div>
         <div style="margin-top:.5rem"><span class="t-prompt">[19:23]</span> <span class="t-cmd">Save detected in Power Apps</span></div>
-        <div><span class="t-output">[19:23] Delta: full_solution changed. Uploading...</span></div>
+        <div><span class="t-output">[19:23] Change found. Syncing...</span></div>
         <div><span class="t-output">[19:23] Importing to target tenant...</span></div>
-        <div><span class="t-output">[19:23] Mapping 16 connection references...</span></div>
-        <div><span class="t-success">&#10003; Sync complete &mdash; 2 flows synced, 0 failures</span></div>
+        <div><span class="t-output">[19:23] Resolving connections...</span></div>
+        <div><span class="t-success">&#10003; Sync complete &mdash; 0 failures</span></div>
     </div>
 </div></section>
 
@@ -217,11 +216,11 @@
     <div class="section-header animate-up"><div class="section-label">What Syncs</div><h2>Every solution component</h2></div>
     <div class="sync-grid">
         <div class="sync-item animate-up delay-1"><div class="sync-icon">&#9889;</div><h4>Cloud Flows</h4><p>Automated &amp; instant flows with all triggers and actions</p></div>
-        <div class="sync-item animate-up delay-2"><div class="sync-icon">&#128421;</div><h4>Desktop Flows</h4><p>Power Automate Desktop RPA definitions and binaries</p></div>
+        <div class="sync-item animate-up delay-2"><div class="sync-icon">&#129302;</div><h4>Copilot Components</h4><p>AI builder models and copilot configurations</p></div>
         <div class="sync-item animate-up delay-3"><div class="sync-icon">&#128241;</div><h4>Canvas Apps</h4><p>Full canvas app packages with screens and logic</p></div>
         <div class="sync-item animate-up delay-4"><div class="sync-icon">&#127959;</div><h4>Model-Driven Apps</h4><p>App modules, sitemaps, and views</p></div>
         <div class="sync-item animate-up delay-5"><div class="sync-icon">&#128451;</div><h4>Dataverse Tables</h4><p>Table definitions, columns, relationships, and choices</p></div>
-        <div class="sync-item animate-up delay-6"><div class="sync-icon">&#128279;</div><h4>Connection Refs</h4><p>Auto-mapped to target tenant equivalents</p></div>
+        <div class="sync-item animate-up delay-6"><div class="sync-icon">&#128279;</div><h4>Connection Refs</h4><p>Automatically resolved in the target tenant</p></div>
         <div class="sync-item animate-up delay-7"><div class="sync-icon">&#9881;</div><h4>Environment Vars</h4><p>Configuration values preserved across tenants</p></div>
         <div class="sync-item animate-up delay-8"><div class="sync-icon">&#128274;</div><h4>Security Roles</h4><p>Role definitions and privilege assignments</p></div>
     </div>
@@ -229,33 +228,20 @@
 
 <!-- TWO PRODUCTS -->
 <section id="products" style="background:var(--bg)"><div class="section-inner">
-    <div class="section-header animate-up"><div class="section-label">Two Ways to Sync</div><h2>Browser or desktop. Your choice.</h2></div>
-    <div class="products-grid">
+    <div class="section-header animate-up"><div class="section-label">Delivery</div><h2>One extension. Zero infrastructure.</h2></div>
+    <div class="products-grid" style="max-width:540px;margin:0 auto;">
         <div class="product-card animate-up delay-1">
             <div class="product-badge">Recommended</div>
             <h3>&#127760; Browser Extension</h3>
             <p class="product-desc">Install once, sync from any Chromium browser. Works with Chrome, Edge, Brave, Opera, and more.</p>
             <ul class="product-features">
-                <li>Zero-config token capture</li>
+                <li>Zero-config authentication</li>
                 <li>Auto-detect saves across all Power Platform surfaces</li>
-                <li>Smart delta detection (CRC-32 hashing)</li>
+                <li>Intelligent change detection</li>
                 <li>Real-time sync status &amp; notifications</li>
                 <li>Works anywhere your browser does</li>
             </ul>
             <a href="#get-started" class="product-cta product-cta-primary">Add to Browser</a>
-        </div>
-        <div class="product-card animate-up delay-2">
-            <div class="product-badge">Enterprise</div>
-            <h3>&#128187; Desktop App</h3>
-            <p class="product-desc">Windows application for enterprise environments. Managed deployment, scheduled sync, offline capability.</p>
-            <ul class="product-features">
-                <li>Enterprise deployment options (AppSource + MSI)</li>
-                <li>Scheduled daily sync with Task Scheduler</li>
-                <li>System tray with background sync</li>
-                <li>DPAPI-encrypted local credentials</li>
-                <li>Works without a browser open</li>
-            </ul>
-            <a href="#get-started" class="product-cta product-cta-secondary">Download for Windows</a>
         </div>
     </div>
 </div></section>
@@ -264,12 +250,12 @@
 <section id="features"><div class="section-inner">
     <div class="section-header animate-up"><div class="section-label">Capabilities</div><h2>Everything Microsoft left out</h2></div>
     <div class="features-grid">
-        <div class="feature-card animate-up delay-1"><div class="feature-icon fi-blue">&#128260;</div><h3>Full Solution Migration</h3><p>Export and import complete Dataverse solutions across tenants &mdash; every component type in a single operation.</p></div>
-        <div class="feature-card animate-up delay-2"><div class="feature-icon fi-amber">&#128279;</div><h3>Automatic Connection Mapping</h3><p>Intelligently maps source connections to target equivalents. SharePoint, Teams, Outlook, Dataverse &mdash; every connector resolved automatically.</p></div>
-        <div class="feature-card animate-up delay-3"><div class="feature-icon fi-green">&#128269;</div><h3>Smart Delta Detection</h3><p>CRC-32 content hashing detects real changes at the component level. Skips sync when nothing changed &mdash; saving bandwidth and time.</p></div>
-        <div class="feature-card animate-up delay-4"><div class="feature-icon fi-purple">&#128230;</div><h3>Cloud Package Hub</h3><p>Solution packages transfer through a secure cloud hub &mdash; no local file paths, no manual downloads. Chunked upload handles any size.</p></div>
+        <div class="feature-card animate-up delay-1"><div class="feature-icon fi-blue">&#128260;</div><h3>Full Solution Migration</h3><p>Move complete Dataverse solutions across tenants &mdash; every component type in a single operation.</p></div>
+        <div class="feature-card animate-up delay-2"><div class="feature-icon fi-amber">&#128279;</div><h3>Automatic Connection Resolution</h3><p>Connections are resolved automatically in the target tenant. SharePoint, Teams, Outlook, Dataverse &mdash; every connector handled for you.</p></div>
+        <div class="feature-card animate-up delay-3"><div class="feature-icon fi-green">&#128269;</div><h3>Intelligent Change Detection</h3><p>Only syncs when something actually changed. Skips unnecessary transfers &mdash; saving bandwidth and time.</p></div>
+        <div class="feature-card animate-up delay-4"><div class="feature-icon fi-purple">&#128230;</div><h3>Secure Cloud Transfer</h3><p>Solution packages transfer through a secure cloud hub &mdash; no local file paths, no manual downloads. Handles any size.</p></div>
         <div class="feature-card animate-up delay-5"><div class="feature-icon fi-rose">&#128203;</div><h3>Full Audit Trail</h3><p>Every operation logged with timestamps, source, target, and results. Version ledger tracks every migration for complete compliance.</p></div>
-        <div class="feature-card animate-up delay-6"><div class="feature-icon fi-cyan">&#9889;</div><h3>Browser-Native Sync</h3><p>Install the extension and sync directly from Power Apps. Auto-detects saves, captures auth tokens from your browser &mdash; zero configuration.</p></div>
+        <div class="feature-card animate-up delay-6"><div class="feature-icon fi-cyan">&#9889;</div><h3>Browser-Native Sync</h3><p>Install the extension and sync directly from Power Apps. Auto-detects saves, authenticates seamlessly &mdash; zero configuration.</p></div>
     </div>
 </div></section>
 
@@ -277,7 +263,7 @@
 <section id="how-it-works" style="background:var(--bg)"><div class="section-inner">
     <div class="section-header animate-up"><div class="section-label">Process</div><h2>Three steps. Five minutes.</h2></div>
     <div class="steps">
-        <div class="step animate-up delay-1"><div class="step-number">1</div><h3>Install</h3><p>Add the TenantSync extension to your browser. Enter your API key. Browse to Power Apps &mdash; tokens are captured automatically.</p></div>
+        <div class="step animate-up delay-1"><div class="step-number">1</div><h3>Install</h3><p>Add the TenantSync extension to your browser. Enter your API key and browse to Power Apps &mdash; authentication is handled automatically.</p></div>
         <div class="step animate-up delay-3"><div class="step-number">2</div><h3>Work</h3><p>Build flows, design apps, configure tables. TenantSync watches for saves across every Power Platform surface in real time.</p></div>
         <div class="step animate-up delay-5"><div class="step-number">3</div><h3>Synced</h3><p>Changes appear in your target tenant automatically. Connections mapped, components imported, everything wired and active.</p></div>
     </div>
@@ -297,14 +283,15 @@
 <!-- PRICING -->
 <section id="pricing" style="background:var(--bg)"><div class="section-inner">
     <div class="section-header animate-up"><div class="section-label">Pricing</div><h2>Simple, honest pricing</h2></div>
-    <div class="pricing-grid">
+    <div class="pricing-grid" style="max-width:720px;margin:0 auto;">
         <div class="pricing-card animate-up delay-1">
             <div class="pricing-tier">Free</div>
             <div class="pricing-price">$0<span>/month</span></div>
             <p class="pricing-desc">Try the full sync experience. Perfect for evaluating TenantSync.</p>
             <ul class="pricing-features">
-                <li>3 manual syncs per day</li>
                 <li>1 sync pair</li>
+                <li>1 solution</li>
+                <li>3 manual syncs per day</li>
                 <li>One-direction sync</li>
                 <li>Full audit trail</li>
                 <li>Browser extension</li>
@@ -317,43 +304,47 @@
             <div class="pricing-price">$39<span>/month</span></div>
             <p class="pricing-desc">Unlimited auto-sync for teams managing multiple tenants.</p>
             <ul class="pricing-features">
-                <li>Unlimited auto-sync on save</li>
-                <li>Unlimited sync pairs</li>
+                <li>10 sync pairs</li>
+                <li>Unlimited solutions</li>
+                <li>Unlimited auto-sync</li>
                 <li>Bi-directional sync</li>
-                <li>Scheduled sync</li>
                 <li>Teams notifications</li>
-                <li>Desktop app included</li>
-                <li>Priority support</li>
+                <li>Email support</li>
             </ul>
             <a href="#get-started" class="pricing-btn pricing-btn-primary">Start Free Trial</a>
-        </div>
-        <div class="pricing-card animate-up delay-3">
-            <div class="pricing-tier">Enterprise</div>
-            <div class="pricing-price">$399<span>/month</span></div>
-            <p class="pricing-desc">For organizations with compliance and large-scale migration needs.</p>
-            <ul class="pricing-features">
-                <li>Everything in Professional</li>
-                <li>AppSource + MSI deployment</li>
-                <li>Encryption at rest</li>
-                <li>Row-level data isolation</li>
-                <li>Dedicated support</li>
-                <li>Custom SLA</li>
-            </ul>
-            <a href="#get-started" class="pricing-btn pricing-btn-secondary">Contact Sales</a>
         </div>
     </div>
 </div></section>
 
-<!-- CTA -->
+<!-- CTA / SIGNUP -->
 <section class="cta-section" id="get-started"><div class="cta-content">
     <div class="section-label animate-up">Get Started</div>
     <h2 class="animate-up delay-1">Stop migrating flows<br>one at a time</h2>
-    <p class="animate-up delay-2">Install the browser extension or download the desktop app. Start syncing in under 5 minutes.</p>
-    <div class="hero-actions animate-up delay-3" style="margin-bottom:0">
-        <a href="#" class="btn-primary">&#127760; Add to Browser</a>
-        <a href="#" class="btn-secondary">&#128187; Download for Windows</a>
+    <p class="animate-up delay-2">Create your free account. No credit card required.</p>
+    
+    <div id="signup-form-container" class="animate-up delay-3">
+        <div class="signup-form" style="flex-direction:column;gap:.5rem;">
+            <input type="text" id="signup-name" placeholder="Your name">
+            <input type="email" id="signup-email" placeholder="Work email">
+            <input type="text" id="signup-company" placeholder="Company name">
+            <button onclick="handleSignup()" id="signup-btn">Create Free Account</button>
+        </div>
+        <div class="form-note">Free tier: 1 sync pair, 3 syncs/day. Upgrade anytime.</div>
+        <div id="signup-error" style="display:none;color:#ef4444;font-weight:600;font-size:.88rem;margin-top:.75rem;"></div>
     </div>
-    <div class="form-note animate-up delay-4">Free tier included. No credit card required.</div>
+    
+    <div id="signup-success" style="display:none;" class="animate-up">
+        <div style="background:#fff;border:2px solid var(--success);border-radius:16px;padding:2rem;max-width:480px;margin:0 auto;text-align:center;">
+            <div style="font-size:2.5rem;margin-bottom:.75rem;">&#9993;</div>
+            <h3 style="color:var(--ink);margin-bottom:.5rem;">Check Your Email!</h3>
+            <p style="color:var(--slate-600);font-size:.92rem;margin-bottom:1rem;">We've sent your API key and setup instructions to <strong id="sent-email"></strong></p>
+            <div style="background:var(--accent-pale);border-radius:10px;padding:1rem;margin-bottom:1rem;">
+                <div style="font-size:.85rem;color:var(--accent);font-weight:600;">&#127881; 14-Day Pro Trial Active</div>
+                <div style="font-size:.82rem;color:var(--slate-600);margin-top:4px;">Full access to BiSync, auto-sync, Teams notifications &amp; more</div>
+            </div>
+            <p style="font-size:.82rem;color:var(--slate-400);">Don't see it? Check your spam folder.</p>
+        </div>
+    </div>
 </div></section>
 
 <!-- FOOTER -->
@@ -376,7 +367,56 @@ for (var i = 0; i < animEls.length; i++) { animEls[i].style.animationPlayState =
 var heroEls = document.querySelectorAll('.hero .animate-up, .terminal-section .animate-up');
 for (var j = 0; j < heroEls.length; j++) { heroEls[j].style.animationPlayState = 'running'; }
 
-function handleSubmit(e) { return false; }
+var TS_API = 'https://singularity-dashboard-alpha.vercel.app/api/tenantsync';
+async function handleSignup() {
+    var btn = document.getElementById('signup-btn');
+    var errEl = document.getElementById('signup-error');
+    var name = document.getElementById('signup-name').value.trim();
+    var email = document.getElementById('signup-email').value.trim();
+    var company = document.getElementById('signup-company').value.trim();
+    
+    errEl.style.display = 'none';
+    
+    if (!name || !email || !company) {
+        errEl.textContent = 'All fields are required.';
+        errEl.style.display = 'block';
+        return;
+    }
+    if (!email.includes('@') || !email.includes('.')) {
+        errEl.textContent = 'Please enter a valid email address.';
+        errEl.style.display = 'block';
+        return;
+    }
+    
+    btn.disabled = true;
+    btn.textContent = 'Creating account...';
+    
+    try {
+        var resp = await fetch(TS_API + '?action=register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ company_name: company, contact_email: email, contact_name: name })
+        });
+        var data = await resp.json();
+        
+        if (!resp.ok) {
+            errEl.textContent = data.error || 'Registration failed. Please try again.';
+            errEl.style.display = 'block';
+            btn.disabled = false;
+            btn.textContent = 'Create Free Account';
+            return;
+        }
+        
+        document.getElementById('sent-email').textContent = email;
+        document.getElementById('signup-form-container').style.display = 'none';
+        document.getElementById('signup-success').style.display = 'block';
+    } catch (e) {
+        errEl.textContent = 'Connection error. Please try again.';
+        errEl.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Create Free Account';
+    }
+}
 </script>
 </body>
 </html>
