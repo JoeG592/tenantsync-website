@@ -305,7 +305,7 @@
                 <li>Full audit trail</li>
                 <li>Browser extension</li>
             </ul>
-            <a href="#get-started" class="pricing-btn pricing-btn-secondary">Get Started Free</a>
+            <a href="javascript:void(0)" onclick="startCheckout()" class="pricing-btn pricing-btn-secondary">Get Started Free</a>
         </div>
         <div class="pricing-card featured animate-up delay-2" style="display:flex;flex-direction:column;">
             <div class="pricing-badge">Most Popular</div>
@@ -320,7 +320,7 @@
                 <li>Teams notifications</li>
                 <li>Email support</li>
             </ul>
-            <a href="#get-started" class="pricing-btn pricing-btn-primary">Start Free Trial</a>
+            <a href="javascript:void(0)" onclick="startCheckout()" class="pricing-btn pricing-btn-primary">Start Free Trial</a>
             <div style="text-align:center;margin-top:.75rem;font-size:.78rem;color:var(--slate-500);">14-day free trial &mdash; no credit card required</div>
         </div>
     </div>
@@ -332,14 +332,9 @@
     <h2 class="animate-up delay-1">Stop migrating flows<br>one at a time</h2>
     <p class="animate-up delay-2">Create your free account. No credit card required.</p>
     
-    <div id="signup-form-container" class="animate-up delay-3">
-        <div class="signup-form" style="flex-direction:column;gap:.5rem;">
-            <input type="text" id="signup-name" placeholder="Your name">
-            <input type="email" id="signup-email" placeholder="Work email">
-            <input type="text" id="signup-company" placeholder="Company name">
-            <button onclick="handleSignup()" id="signup-btn">Create Free Account</button>
-        </div>
-        <div class="form-note">Free tier: 1 sync pair, 3 syncs/day. Upgrade anytime.</div>
+    <div id="signup-form-container" class="animate-up delay-3" style="text-align:center;">
+        <button onclick="startCheckout()" id="signup-btn" style="padding:1rem 2.5rem;background:var(--accent);color:#fff;border:none;border-radius:12px;font-family:var(--sans);font-weight:600;font-size:1.05rem;cursor:pointer;transition:all .25s;box-shadow:0 4px 16px rgba(37,99,235,.3);">&#9889; Start Free Trial</button>
+        <div class="form-note" style="margin-top:.85rem;">14-day free trial &mdash; no credit card required.</div>
         <div id="signup-error" style="display:none;color:#ef4444;font-weight:600;font-size:.88rem;margin-top:.75rem;"></div>
     </div>
     
@@ -347,7 +342,7 @@
         <div style="background:#fff;border:2px solid var(--success);border-radius:16px;padding:2rem;max-width:480px;margin:0 auto;text-align:center;">
             <div style="font-size:2.5rem;margin-bottom:.75rem;">&#9993;</div>
             <h3 style="color:var(--ink);margin-bottom:.5rem;">Check Your Email!</h3>
-            <p style="color:var(--slate-600);font-size:.92rem;margin-bottom:1rem;">We've sent your API key and setup instructions to <strong id="sent-email"></strong></p>
+            <p style="color:var(--slate-600);font-size:.92rem;margin-bottom:1rem;">We've sent your API key and setup instructions to your inbox.</p>
             <div style="background:var(--accent-pale);border-radius:10px;padding:1rem;margin-bottom:1rem;">
                 <div style="font-size:.85rem;color:var(--accent);font-weight:600;">&#127881; 14-Day Pro Trial Active</div>
                 <div style="font-size:.82rem;color:var(--slate-600);margin-top:4px;">Full access to BiSync, auto-sync, Teams notifications &amp; more</div>
@@ -377,54 +372,41 @@ for (var i = 0; i < animEls.length; i++) { animEls[i].style.animationPlayState =
 var heroEls = document.querySelectorAll('.hero .animate-up, .terminal-section .animate-up');
 for (var j = 0; j < heroEls.length; j++) { heroEls[j].style.animationPlayState = 'running'; }
 
-var TS_API = 'https://singularity-dashboard-alpha.vercel.app/api/tenantsync';
-async function handleSignup() {
+var BILLING_API = 'https://singularity-dashboard-alpha.vercel.app/api/billing';
+var TS_PRICE_ID = 'price_1T9GpF41BcLCvAWAaMwhbxMP';
+
+async function startCheckout() {
     var btn = document.getElementById('signup-btn');
     var errEl = document.getElementById('signup-error');
-    var name = document.getElementById('signup-name').value.trim();
-    var email = document.getElementById('signup-email').value.trim();
-    var company = document.getElementById('signup-company').value.trim();
-    
-    errEl.style.display = 'none';
-    
-    if (!name || !email || !company) {
-        errEl.textContent = 'All fields are required.';
-        errEl.style.display = 'block';
-        return;
+    if (errEl) errEl.style.display = 'none';
+
+    if (btn) {
+        btn.disabled = true;
+        btn.textContent = 'Redirecting to Stripe...';
     }
-    if (!email.includes('@') || !email.includes('.')) {
-        errEl.textContent = 'Please enter a valid email address.';
-        errEl.style.display = 'block';
-        return;
-    }
-    
-    btn.disabled = true;
-    btn.textContent = 'Creating account...';
-    
+
     try {
-        var resp = await fetch(TS_API + '?action=register', {
+        var resp = await fetch(BILLING_API + '?action=create-checkout', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ company_name: company, contact_email: email, contact_name: name })
+            body: JSON.stringify({ price_id: TS_PRICE_ID, product: 'tenantsync' })
         });
         var data = await resp.json();
-        
-        if (!resp.ok) {
-            errEl.textContent = data.error || 'Registration failed. Please try again.';
-            errEl.style.display = 'block';
-            btn.disabled = false;
-            btn.textContent = 'Create Free Account';
-            return;
+
+        if (!resp.ok || !data.url) {
+            throw new Error(data.error || 'Failed to start checkout. Please try again.');
         }
-        
-        document.getElementById('sent-email').textContent = email;
-        document.getElementById('signup-form-container').style.display = 'none';
-        document.getElementById('signup-success').style.display = 'block';
+
+        window.location.href = data.url;
     } catch (e) {
-        errEl.textContent = 'Connection error. Please try again.';
-        errEl.style.display = 'block';
-        btn.disabled = false;
-        btn.textContent = 'Create Free Account';
+        if (errEl) {
+            errEl.textContent = e.message || 'Connection error. Please try again.';
+            errEl.style.display = 'block';
+        }
+        if (btn) {
+            btn.disabled = false;
+            btn.textContent = '⚡ Start Free Trial';
+        }
     }
 }
 </script>
