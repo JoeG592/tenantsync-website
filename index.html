@@ -263,7 +263,7 @@
         <div class="feature-card animate-up delay-2"><div class="feature-icon fi-amber">&#128279;</div><h3>Automatic Connection Resolution</h3><p>Connections are resolved automatically in the target tenant. SharePoint, Teams, Outlook, Dataverse &mdash; every connector handled for you.</p></div>
         <div class="feature-card animate-up delay-3"><div class="feature-icon fi-green">&#128269;</div><h3>Intelligent Change Detection</h3><p>Only syncs when something actually changed. Skips unnecessary transfers &mdash; saving bandwidth and time.</p></div>
         <div class="feature-card animate-up delay-4"><div class="feature-icon fi-purple">&#128230;</div><h3>Secure Cloud Transfer</h3><p>Solution packages transfer through a secure cloud hub &mdash; no local file paths, no manual downloads. Handles any size.</p></div>
-        <div class="feature-card animate-up delay-5"><div class="feature-icon fi-rose">&#128203;</div><h3>Full Audit Trail</h3><p>Every operation logged with timestamps, source, target, and results. Version ledger tracks every migration for complete compliance.</p></div>
+        <div class="feature-card animate-up delay-5"><div class="feature-icon fi-rose">&#127760;</div><h3>Works Across Tenants</h3><p>Sync solutions between completely different Microsoft 365 organizations. No admin trust required between tenants.</p></div>
         <div class="feature-card animate-up delay-6"><div class="feature-icon fi-cyan">&#9889;</div><h3>Browser-Native Sync</h3><p>Install the extension and sync directly from Power Apps. Auto-detects saves, authenticates seamlessly &mdash; zero configuration.</p></div>
     </div>
 </div></section>
@@ -296,27 +296,24 @@
         <div class="pricing-card animate-up delay-1" style="display:flex;flex-direction:column;">
             <div class="pricing-tier">Free</div>
             <div class="pricing-price">$0<span>/month</span></div>
-            <p class="pricing-desc">Try the full sync experience. Perfect for evaluating TenantSync.</p>
+            <p class="pricing-desc">Everything you need to sync a single pair.</p>
             <ul class="pricing-features" style="flex:1;">
                 <li>1 sync pair</li>
-                <li>1 solution</li>
-                <li>3 manual syncs per day</li>
-                <li>One-direction sync</li>
-                <li>Full audit trail</li>
+                <li>10 manual syncs per day</li>
+                <li>Bi-directional sync</li>
                 <li>Browser extension</li>
             </ul>
             <a href="javascript:void(0)" onclick="startCheckout()" class="pricing-btn pricing-btn-secondary">Get Started Free</a>
         </div>
         <div class="pricing-card featured animate-up delay-2" style="display:flex;flex-direction:column;">
-            <div class="pricing-badge">Most Popular</div>
-            <div class="pricing-tier">Professional</div>
+            <div class="pricing-tier">Pro</div>
             <div class="pricing-price">$39<span>/month</span></div>
             <p class="pricing-desc">Unlimited auto-sync for teams managing multiple tenants.</p>
             <ul class="pricing-features" style="flex:1;">
                 <li>10 sync pairs</li>
-                <li>Unlimited solutions</li>
+                <li>Unlimited syncs</li>
                 <li>Unlimited auto-sync</li>
-                <li>Bi-directional sync</li>
+                <li>Scheduled sync</li>
                 <li>Teams notifications</li>
                 <li>Email support</li>
             </ul>
@@ -355,11 +352,11 @@
 <!-- FOOTER -->
 <footer><div class="footer-inner">
     <div class="footer-left"><div class="logo-mark" style="width:28px;height:28px;font-size:.65rem;border-radius:7px">TS</div><span class="footer-text">TenantSync &copy; 2026</span></div>
-    <div class="footer-links"><a href="mailto:hello@tenantsync.io">Contact</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></div>
+    <div class="footer-links"><a href="/cdn-cgi/l/email-protection#f59d9099999ab581909b949b81868c9b96db9c9a">Contact</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></div>
     <div class="footer-flag">Made in Edmonton, Alberta &#127464;&#127462;</div>
 </div></footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 var nav = document.getElementById('nav');
 window.addEventListener('scroll', function() {
     if (window.scrollY > 40) { nav.classList.add('scrolled'); } else { nav.classList.remove('scrolled'); }
@@ -403,12 +400,3 @@ async function startCheckout() {
             errEl.textContent = e.message || 'Connection error. Please try again.';
             errEl.style.display = 'block';
         }
-        if (btn) {
-            btn.disabled = false;
-            btn.textContent = '⚡ Start Free Trial';
-        }
-    }
-}
-</script>
-</body>
-</html>
