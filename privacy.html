@@ -30,7 +30,7 @@
 
 <div class="content">
 <h1>Privacy Policy</h1>
-<p class="updated">Last updated: February 6, 2026</p>
+<p class="updated">Last updated: June 6, 2026</p>
 
 <h2>1. Who We Are</h2>
 <p>TenantSync is operated by Joe Green ("we", "us", "our"), based in Edmonton, Alberta, Canada. We provide cross-tenant migration tools for Microsoft Power Platform environments.</p>
@@ -41,7 +41,8 @@
     <li><strong>Waitlist signups:</strong> Email address, IP address, browser user agent, and timestamp when you join our waitlist.</li>
     <li><strong>Account information:</strong> When you create an account, we collect your company name, email address, and payment information (processed by Stripe).</li>
     <li><strong>Usage data:</strong> Sync operations initiated, flows migrated, and error logs to maintain service quality.</li>
-    <li><strong>Technical data:</strong> Solution package metadata (solution names, component counts, connection types). We do not store the contents of your flows, business logic, or proprietary data.</li>
+    <li><strong>Solution packages &amp; metadata:</strong> To run a sync we process the exported solution package — which includes your solution, flow, table, and connection definitions — and record metadata such as solution names, component counts, and connection types. Packages are stored only temporarily to complete the sync and provide an audit/retry trail; they are not retained long-term (see Data Retention).</li>
+    <li><strong>Microsoft authentication tokens:</strong> To perform a sync you initiate, the TenantSync browser extension reads the Microsoft Dataverse / Azure AD access and refresh tokens from your own signed-in session. It does this by reading the Authorization (Bearer) header from your in-progress Dataverse requests — observationally only, without blocking or modifying any request. These tokens authorize the export from your source environment and the import into your target environment, and are transmitted only to TenantSync's own HTTPS backend.</li>
 </ul>
 
 <h2>3. How We Use Your Information</h2>
@@ -53,7 +54,7 @@
 </ul>
 
 <h2>4. Data Storage and Security</h2>
-<p>Your data is stored in Neon PostgreSQL (cloud database) and transmitted via HTTPS encryption. Solution packages are transferred through our secure cloud hub and are not permanently stored after migration completes. We implement industry-standard security measures including encrypted connections, access controls, and regular security reviews.</p>
+<p>Data is stored in Neon PostgreSQL (cloud database, hosted on Vercel infrastructure) and transmitted over HTTPS. Microsoft authentication tokens are encrypted at rest using AES-256-GCM with per-customer keys and are never stored in plaintext. Your browser exports the source environment and hands off — it never stores credentials for the target tenant, and authentication uses Microsoft's standard Azure AD device-code sign-in. Solution packages are transferred through our secure cloud hub and held only temporarily to complete the sync and provide an audit/retry trail. We implement industry-standard security measures including encrypted connections, access controls, and regular security reviews.</p>
 
 <h2>5. Data Sharing</h2>
 <p>We do not sell, rent, or share your personal information with third parties except:</p>
@@ -73,7 +74,7 @@
 </ul>
 
 <h2>7. Data Retention</h2>
-<p>Waitlist data is retained until you request removal or the waitlist is closed. Account data is retained for the duration of your subscription plus 90 days. Sync logs are retained for 12 months. You may request deletion at any time by contacting us.</p>
+<p>Waitlist data is retained until you request removal or the waitlist is closed. Account data is retained for the duration of your subscription plus 90 days. Sync logs are retained for 12 months. Microsoft authentication tokens are retained only as long as needed to keep your syncs working and are removed when you disconnect a tenant or delete your account; solution packages are deleted after the sync completes and a short audit/retry window. You may request deletion at any time by contacting us.</p>
 
 <h2>8. Cookies</h2>
 <p>Our website uses minimal cookies for session management only. We do not use tracking cookies, advertising cookies, or third-party analytics.</p>
