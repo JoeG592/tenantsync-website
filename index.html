@@ -304,7 +304,7 @@
   <h1 class="reveal in">Move solutions between tenants <em>in seconds</em>, not tickets.</h1>
   <p class="lede reveal in">TenantSync keeps Dataverse solutions, flows, connections, and tables in lockstep across your Microsoft 365 tenants — bidirectional, conflict-aware, and tokens that never leave the server.</p>
   <div class="cta-row reveal in">
-    <a href="#" class="btn btn-primary">Add to Chrome — free →</a>
+    <a href="javascript:void(0)" onclick="startCheckout(this)" class="btn btn-primary">Start Free Trial →</a>
     <a href="#how" class="btn btn-ghost">See how it works</a>
   </div>
 
@@ -535,7 +535,7 @@
         <li>Teams notifications</li>
         <li>Email support</li>
       </ul>
-      <a href="#" class="btn btn-primary">Start Pro</a>
+      <a href="javascript:void(0)" onclick="startCheckout(this)" class="btn btn-primary">Start Pro</a>
     </div>
   </div>
 </div></section>
@@ -545,7 +545,7 @@
   <div class="cta-card reveal">
     <h2>Stop hand-migrating <em>solutions</em> between tenants.</h2>
     <p>Install the extension, connect two tenants, and run your first cross-tenant sync in minutes. Free to start.</p>
-    <a href="#" class="btn btn-primary">Add to Chrome — free →</a>
+    <a href="javascript:void(0)" onclick="startCheckout(this)" class="btn btn-primary">Start Free Trial →</a>
   </div>
 </div></section>
 
@@ -627,6 +627,27 @@
     steps.forEach(s=>s.addEventListener('click',()=>{ clearInterval(timer); p=+s.dataset.s; render(p); p=(p+1)%4; setTimeout(start,6000); }));
     start();
   })();
+
+  // --- Stripe checkout (restored; the redesign had dropped this) ---
+  var BILLING_API = 'https://singularity-dashboard-alpha.vercel.app/api/billing';
+  var TS_PRICE_ID = 'price_1T9GpF41BcLCvAWAaMwhbxMP'; // TODO(stripe-live-switch): TEST-mode $39 price -- swap for LIVE $10/mo price before real customers
+  async function startCheckout(btn){
+    var orig = btn ? btn.textContent : '';
+    if (btn){ btn.style.pointerEvents='none'; btn.setAttribute('aria-busy','true'); btn.textContent='Redirecting to Stripe...'; }
+    try{
+      var resp = await fetch(BILLING_API + '?action=create-checkout', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ price_id: TS_PRICE_ID, product: 'tenantsync' })
+      });
+      var data = await resp.json();
+      if(!resp.ok || !data.url){ throw new Error(data.error || 'Failed to start checkout. Please try again.'); }
+      window.location.href = data.url;
+    }catch(e){
+      if(btn){ btn.style.pointerEvents=''; btn.removeAttribute('aria-busy'); btn.textContent=orig; }
+      alert(e.message || 'Connection error. Please try again.');
+    }
+  }
+  window.startCheckout = startCheckout;
 </script>
 </body>
 </html>
